@@ -226,6 +226,8 @@ static void decode_callback(void *opaque,
             vt->queue = queue_walker = next_frame;
         }
     }
+
+    TRACE(dec_ctx, "exiting decode callback");
 }
 
 static int vtdec_init(struct decoder_ctx *dec_ctx)
@@ -356,6 +358,7 @@ static int vtdec_push_packet(struct decoder_ctx *dec_ctx, const AVPacket *pkt)
     if (!sample_buf)
         return AVERROR_EXTERNAL;
 
+    TRACE(dec_ctx, "request decoding packet of size %d", pkt->size);
     status = VTDecompressionSessionDecodeFrame(vt->session,
                                                sample_buf,
                                                decodeFlags,
@@ -374,6 +377,7 @@ static int vtdec_push_packet(struct decoder_ctx *dec_ctx, const AVPacket *pkt)
         return AVERROR_EXTERNAL;
     }
 
+    TRACE(dec_ctx, "decoded packet of size %d", pkt->size);
     return pkt->size;
 }
 
