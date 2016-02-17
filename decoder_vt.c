@@ -182,7 +182,7 @@ static void decode_callback(void *opaque,
     struct async_frame *new_frame;
     struct async_frame *queue_walker;
 
-    TRACE(dec_ctx, "entering decode callback");
+    TRACE(dec_ctx, "entering decode callback status=%d", status);
 
     if (!image_buffer) {
         TRACE(dec_ctx, "decode cb received NULL output image buffer");
